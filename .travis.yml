@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - "0.12"
 before_script:
+  - cat /proc/cpuinfo
   - npm install -g elm
   - elm-package install -y
 script: elm make Main.elm
