@@ -1,8 +1,20 @@
-language: node_js
-node_js:
-  - "0.12"
-before_script:
+language: haskell
+addons:
+  apt:
+    packages:
+      - libtinfo-dev
+      - zlib1g-dev
+ghc:
+  - "7.10"
+install:
+  - ghc --version
+  - cabal --version
+  - mkdir -p Elm-Platform/0.17/.cabal-sandbox/bin
+  - export PATH=Elm-Platform/0.17/.cabal-sandbox/bin:$PATH
+  - curl https://raw.githubusercontent.com/elm-lang/elm-platform/master/installers/BuildFromSource.hs > BuildFromSource.hs
+  - runhaskell BuildFromSource.hs 0.17
   - cat /proc/cpuinfo
   - npm install -g elm
   - elm-package install -y
-script: elm make Main.elm
+script:
+  - elm make Main.elm
